@@ -1,0 +1,18 @@
+---
+    AWSTemplateFormatVersion: '2010-09-09'
+    Description: 'Setup for VPC. This purpose is to enable to connect RDS from local'
+    Resources:
+      #rdsのサブネットグループ
+      RdsSubnetGroup:
+        Type: AWS::RDS::DBSubnetGroup
+        Properties: 
+          DBSubnetGroupDescription: 'This is RdsSubnetGroup'
+          DBSubnetGroupName: RdsSubnetGroup
+          SubnetIds: 
+            - subnet-aaa
+            - subnet-bbb
+            #前回のvpc_for_ec2_rds.ymlで作られたprivate_subnetのidをここに記述
+            #2種のazに紐づいたsubnetを紐付け
+          Tags: 
+          - Key: Name
+            Value: RdsSubnetGroup
