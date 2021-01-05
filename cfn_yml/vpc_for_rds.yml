@@ -1,0 +1,63 @@
+---
+    AWSTemplateFormatVersion: '2010-09-09'
+    Description: 'Setup for VPC. This purpose is to enable to connect RDS from local'
+    Resources:
+      #RouteTable
+      PrivateRouteTable1:
+        Type: AWS::EC2::RouteTable
+        Properties:
+        #EKSのVPCを設定
+          VpcId:  
+            vpc-xxx
+          Tags:
+          - Key: Name
+            Value: PrivateRouteTable1
+      PrivateRouteTable2:
+        Type: AWS::EC2::RouteTable
+        Properties:
+        #EKSのVPCを設定
+          VpcId:  
+            vpc-xxx
+          Tags:
+          - Key: Name
+            Value: PrivateRouteTable2
+      #Subnet
+      PrivateSubnet1:
+        Type: AWS::EC2::Subnet
+        Properties:
+          #EKSのVPCを設定
+          VpcId:  
+            vpc-xxx
+          #EKSで使用されているサブネットを確認してcidrを割り当てる
+          CidrBlock: 192.168.192.0/19
+          AvailabilityZone: "ap-northeast-1a"
+          Tags:
+          - Key: Name
+            Value: PrivateSubnet1
+      PrivateSubnet2:
+        Type: AWS::EC2::Subnet
+        Properties:
+          #EKSのVPCを設定
+          VpcId:  
+            vpc-xxx
+          #EKSで使用されているサブネットを確認してcidrを割り当てる
+          CidrBlock: 192.168.224.0/19
+          AvailabilityZone: "ap-northeast-1c"
+          Tags:
+          - Key: Name
+            Value: PrivateSubnet2
+      #SubnetRouteTableAssociation(subnetとrouteTableを紐付け、これだけではprivateのまま)
+      PrivateSubnet1RouteTableAssociation:
+        Type: AWS::EC2::SubnetRouteTableAssociation
+        Properties: 
+          SubnetId: 
+            Ref: PrivateSubnet1
+          RouteTableId: 
+            Ref: PrivateRouteTable1
+      PrivateSubnet2RouteTableAssociation:
+        Type: AWS::EC2::SubnetRouteTableAssociation
+        Properties: 
+          SubnetId: 
+            Ref: PrivateSubnet2
+          RouteTableId: 
+            Ref: PrivateRouteTable2

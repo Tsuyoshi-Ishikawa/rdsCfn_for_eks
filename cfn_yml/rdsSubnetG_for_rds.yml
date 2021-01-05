@@ -11,7 +11,7 @@
           SubnetIds: 
             - subnet-aaa
             - subnet-bbb
-            #前回のvpc_for_ec2_rds.ymlで作られたprivate_subnetのidをここに記述
+            #前回のvpc_for_rds.ymlで作られたprivate_subnetのidをここに記述
             #2種のazに紐づいたsubnetを紐付け
           Tags: 
           - Key: Name
